@@ -113,7 +113,6 @@ class PostListView(ListView):
         context['form'] = self.form
         return context
 
-
 def post_list(request):
     category_count = get_category_count()
     most_recent = Post.objects.order_by('-timestamp')[:3]

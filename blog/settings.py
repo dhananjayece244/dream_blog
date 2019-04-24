@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'tinymce',
 
     'marketing',
-    'posts'
+    'posts',
+    'polls',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -139,6 +140,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 TINYMCE_DEFAULT_CONFIG = {
     'cleanup_on_startup': True,
+    'images_upload_credentials': True,
     'custom_undo_redo_levels': 20,
     'selector': 'textarea',
     'theme': 'modern',
