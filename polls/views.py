@@ -7,12 +7,14 @@ from django.template import loader, RequestContext
 from .models import Question
 
 def index(request):
+	# print("latest_questions")
 	latest_questions = Question.objects.order_by('-pub_date')[:5]
+	# print(latest_questions)
 	template = loader.get_template('blog.html')
 	context = RequestContext(request, {
 		'latest_questions' : latest_questions
 	})
-	return HttpResponse(template.render(context))
+	return render(request, 'post.html', context)
 
 
 def details(request, question_id):

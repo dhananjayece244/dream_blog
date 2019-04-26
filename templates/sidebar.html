@@ -16,59 +16,34 @@
 
         <div class="panel panel-primary">
             <div class="panel-heading">
+                {% for q in latest_questions %}
                 <h3 class="panel-title">
-                    <span class="glyphicon glyphicon-arrow-right"></span>How is My Site? <a
+                    <span class="glyphicon glyphicon-arrow-right"></span>{{q.question_text}} <a
                         href="http://www.jquery2dotnet.com" target="_blank"><span
                             class="glyphicon glyphicon-new-window"></span></a>
                 </h3>
             </div>
             <div class="panel-body">
                 <ul class="list-group">
-                    {% for q in latest_questions %}
-                    <li class="list-group-item">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios">
-                                xxxx
-                                {{q.question_text}}
-                            </label>
-                        </div>
-                    </li>
-                    {% endfor %}
-                    <!-- <li class="list-group-item">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios">
-                                Excellent
-                            </label>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios">
-                                Bed
-                            </label>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios">
-                                Can Be Improved
-                            </label>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios">
-                                No Comment
-                            </label>
-                        </div>
-                    </li> -->
+                    <form action="{% url 'vote' q.id %}" method="post">
+                        {% csrf_token %}
+
+                        {% for choice in q.choice_set.all %}
+                        <input type="radio" name="choice" id="choice{{forloop.counter}}" value=" {{choice.id}}" />
+                        <label for="choice{{forloop.counter}}"> {{choice.choice_text}}</label> <br>
+                        <!-- <li class="list-group-item">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios">
+                                    {{c.choice_text}}
+                                </label>
+                            </div>
+                        </li> -->
+                        {% endfor %}
                 </ul>
+                </form>
             </div>
+            {% endfor %}
             <div class="panel-footer">
                 <button type="button" class="btn btn-primary btn-sm">
                     Vote</button>
